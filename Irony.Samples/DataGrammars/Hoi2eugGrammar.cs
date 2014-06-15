@@ -18,17 +18,18 @@ namespace Irony.Samples.DataGrammars
 
             // non-terminals
             var scenario = new NonTerminal("Scenario");
+            var properties = new NonTerminal("Properties");
             var property = new NonTerminal("Property");
             var propertyName = new NonTerminal("PropertyName");
             var propertyValue = new NonTerminal("PropertyValue");
             var hvalue = new NonTerminal("Value");
 
-            scenario.Rule = property + property;
-
+            scenario.Rule = properties;
+            properties.Rule =  MakeStarRule(properties, property);
             property.Rule = propertyName + "=" + propertyValue;
             propertyName.Rule = name;
             propertyValue.Rule = hvalue;
-            hvalue.Rule = name | hnumber | hstring;
+            hvalue.Rule = name | hnumber | hstring | "{" + properties + "}";
 
             this.Root = scenario;
             MarkPunctuation("{", "}", "=");
