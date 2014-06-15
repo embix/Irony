@@ -35,7 +35,7 @@ namespace Irony.Samples.DataGrammars
             scenario.Rule = properties;
             properties.Rule =  MakePlusRule(properties, property);
             property.Rule = propertyName + "=" + propertyValue;
-            propertyName.Rule = name;
+            propertyName.Rule = name | hnumber;
             propertyValue.Rule = hvalue;
             hvalue.Rule = name | hnumber | hstring | hobject | harray;
             hobject.Rule = "{" + properties + "}";
