@@ -23,13 +23,19 @@ namespace Irony.Samples.DataGrammars
             var propertyName = new NonTerminal("PropertyName");
             var propertyValue = new NonTerminal("PropertyValue");
             var hvalue = new NonTerminal("Value");
+            var hobject = new NonTerminal("Object");
+            var harray = new NonTerminal("Array");
+            var names = new NonTerminal("Names");
 
             scenario.Rule = properties;
-            properties.Rule =  MakeStarRule(properties, property);
+            properties.Rule =  MakePlusRule(properties, property);
             property.Rule = propertyName + "=" + propertyValue;
             propertyName.Rule = name;
             propertyValue.Rule = hvalue;
-            hvalue.Rule = name | hnumber | hstring | "{" + properties + "}";
+            hvalue.Rule = name | hnumber | hstring | hobject | harray;
+            hobject.Rule = "{" + properties + "}";
+            harray.Rule = "{" + names + "}";
+            names.Rule = MakePlusRule(names, name);
 
             this.Root = scenario;
             MarkPunctuation("{", "}", "=");
