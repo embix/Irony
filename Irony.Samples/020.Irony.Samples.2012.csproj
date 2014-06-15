@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CSharp\CSharpGrammar.cs" />
+    <Compile Include="DataGrammars\Hoi2eugGrammar.cs" />
     <Compile Include="DataGrammars\SampleCsvGrammar.cs" />
     <Compile Include="FullTextSearchQueryConverter\SearchGrammar.cs" />
     <Compile Include="DataGrammars\JsonGrammar.cs" />
