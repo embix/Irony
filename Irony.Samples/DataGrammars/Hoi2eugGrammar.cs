@@ -14,7 +14,10 @@ namespace Irony.Samples.DataGrammars
 
             // terminals
             var hstring = new StringLiteral("String", "\"");
-            var name = new IdentifierTerminal("Name");
+            var name = new IdentifierTerminal("Name", "_-", "_-");
+            // normal countries are 3 letter uppercase abrevs like SWE
+            // but there is a country called --- WTF?!
+            name.AllChars = name.AllChars + "-";
             var hnumber = new NumberLiteral("Number", NumberOptions.AllowSign);
 
             // non-terminals
