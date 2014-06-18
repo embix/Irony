@@ -32,6 +32,7 @@ namespace Irony.Samples.DataGrammars
             var names = new NonTerminal("Names");
             var integers = new NonTerminal("Integers");
             var strings = new NonTerminal("Strings");
+            var objects = new NonTerminal("Objects");
             
             scenario.Rule = properties;
             properties.Rule =  MakePlusRule(properties, property);
@@ -40,11 +41,12 @@ namespace Irony.Samples.DataGrammars
             propertyValue.Rule = hvalue;
             hvalue.Rule = name | hnumber | hstring | hobject | harray;
             hobject.Rule = "{" + properties + "}";
-            harray.Rule = "{" + names + "}" | "{" + integers + "}" | "{" + strings + "}";
+            harray.Rule = "{" + names + "}" | "{" + integers + "}" | "{" + strings + "}" | "{" + objects + "}";
             names.Rule = MakePlusRule(names, name);
-            integers.Rule = MakeStarRule(integers, hnumber);// we should have an integer and a float type...
+            integers.Rule = MakeStarRule(integers, hnumber);// maybe we should have an integer and a float type...
             strings.Rule = MakePlusRule(strings, hstring);
-
+            objects.Rule = MakePlusRule(objects, hobject);
+            
             this.Root = scenario;
             MarkPunctuation("{", "}", "=");
         }
